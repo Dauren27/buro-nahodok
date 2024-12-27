@@ -20,26 +20,26 @@ const UserTable = ({ user, getUser }) => {
     const columns = [
         {
             id: 'name',
-            label: 'Name',
+            label: 'ФИО',
             minWidth: 100,
             align: 'center',
         },
         {
             id: 'phone',
-            label: 'Phone Number',
+            label: 'Номер телефона',
             align: 'center',
             minWidth: 100
         },
         {
             id: 'email',
-            label: 'Email',
+            label: 'Почта',
             minWidth: 70,
             align: 'center',
 
         },
         {
             id: 'date',
-            label: 'Created On',
+            label: 'Дата создания',
             minWidth: 100,
             align: 'center',
 
@@ -70,7 +70,7 @@ const UserTable = ({ user, getUser }) => {
                 <TextField
                     id="search"
                     type="search"
-                    label="Search Users"
+                    label="Найти пользователя"
                     onChange={handleSearchInputChange}
                     className="placeholder-animation"
                     sx={{ width: { xs: 350, sm: 500, md: 800 }, }}
@@ -107,7 +107,7 @@ const UserTable = ({ user, getUser }) => {
                                 <TableRow>
                                     <TableCell colSpan={columns.length}>
                                         <div style={{ display: "flex", justifyContent: "center" }}>
-                                            <h4> User not found.</h4>
+                                            <h4> Пользователь не найден.</h4>
                                         </div>
                                     </TableCell>
                                 </TableRow>

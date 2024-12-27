@@ -1,17 +1,33 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, TextField, Typography } from '@mui/material';
-import axios from 'axios';
-import React, { useState } from 'react'
-import { MdOutlineCancel, MdPersonAddAlt1 } from 'react-icons/md';
-import { toast } from 'react-toastify';
-import { Transition } from '../../Constants/Constant';
+import {
+    Box,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Divider,
+    Grid,
+    TextField,
+    Typography,
+} from "@mui/material";
+import axios from "axios";
+import React, {useState} from "react";
+import {MdOutlineCancel, MdPersonAddAlt1} from "react-icons/md";
+import {toast} from "react-toastify";
+import {Transition} from "../../Constants/Constant";
 
-
-const AddUser = ({ getUser }) => {
+const AddUser = ({getUser}) => {
     const [open, setOpen] = useState(false);
-    const [credentials, setCredentials] = useState({ firstName: "", lastName: '', email: "", phoneNumber: '', password: "" })
+    const [credentials, setCredentials] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        password: "",
+    });
     const handleOnChange = (e) => {
-        setCredentials({ ...credentials, [e.target.name]: e.target.value })
-    }
+        setCredentials({...credentials, [e.target.name]: e.target.value});
+    };
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -20,72 +36,133 @@ const AddUser = ({ getUser }) => {
         setOpen(false);
     };
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         let phoneRegex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/gm;
-        let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let emailRegex =
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
         try {
-            if (!credentials.email && !credentials.firstName && !credentials.password && !credentials.phoneNumber && !credentials.lastName) {
-                toast.error("Please Fill the all Fields", { autoClose: 500, theme: 'colored' })
-            }
-            else if (credentials.firstName.length <= 3 || credentials.lastName.length <= 3) {
-                toast.error("Please enter name with more than 3 characters", { autoClose: 500, theme: 'colored' })
-            }
-            else if (!emailRegex.test(credentials.email)) {
-                toast.error("Please enter valid email", { autoClose: 500, theme: 'colored' })
-            }
-            else if (!phoneRegex.test(credentials.phoneNumber)) {
-                toast.error("Please enter a valid phone number", { autoClose: 500, theme: 'colored' })
-            }
-            else if (credentials.password.length < 5) {
-                toast.error("Please enter password with more than 5 characters", { autoClose: 500, theme: 'colored' })
-            }
-            else if (credentials.email && credentials.firstName && credentials.lastName && credentials.phoneNumber && credentials.password) {
-                const sendAuth = await axios.post(`${process.env.REACT_APP_REGISTER}`,
+            if (
+                !credentials.email &&
+                !credentials.firstName &&
+                !credentials.password &&
+                !credentials.phoneNumber &&
+                !credentials.lastName
+            ) {
+                toast.error("Пожалуйста, заполните все поля", {
+                    autoClose: 500,
+                    theme: "colored",
+                });
+            } else if (
+                credentials.firstName.length <= 3 ||
+                credentials.lastName.length <= 3
+            ) {
+                toast.error("Введите имя и фамилию длиной более 3 символов", {
+                    autoClose: 500,
+                    theme: "colored",
+                });
+            } else if (!emailRegex.test(credentials.email)) {
+                toast.error("Введите действительный адрес электронной почты", {
+                    autoClose: 500,
+                    theme: "colored",
+                });
+            }  else if (credentials.password.length < 5) {
+                toast.error("Введите пароль длиной более 5 символов", {
+                    autoClose: 500,
+                    theme: "colored",
+                });
+            } else if (
+                credentials.email &&
+                credentials.firstName &&
+                credentials.lastName &&
+                credentials.phoneNumber &&
+                credentials.password
+            ) {
+                const sendAuth = await axios.post(
+                    `${process.env.REACT_APP_REGISTER}`,
                     {
                         firstName: credentials.firstName,
                         lastName: credentials.lastName,
                         email: credentials.email,
                         phoneNumber: credentials.phoneNumber,
                         password: credentials.password,
-                    })
-                const receive = await sendAuth.data
+                    }
+                );
+                const receive = await sendAuth.data;
                 setOpen(false);
                 if (receive.success === true) {
-                    getUser()
-                    toast.success("Registered Successfully", { autoClose: 500, theme: 'colored' })
+                    getUser();
+                    toast.success("Регистрация прошла успешно", {
+                        autoClose: 500,
+                        theme: "colored",
+                    });
                     setCredentials({
                         firstName: "",
-                        lastName: '',
+                        lastName: "",
                         email: "",
-                        phoneNumber: '',
-                        password: ""
-                    })
-                }
-                else {
-                    toast.error("Some thing went wrong", { autoClose: 500, theme: 'colored' })
+                        phoneNumber: "",
+                        password: "",
+                    });
+                } else {
+                    toast.error("Что-то пошло не так", {
+                        autoClose: 500,
+                        theme: "colored",
+                    });
                 }
             }
         } catch (error) {
-            toast.error(error.response.data.error, { autoClose: 500, theme: 'colored' })
+            toast.error(error.response.data.error, {
+                autoClose: 500,
+                theme: "colored",
+            });
         }
+    };
 
-    }
     return (
         <>
-            <Box sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', margin: "20px 0" }} >
-                <Typography variant='h6' textAlign='center' color="#1976d2" fontWeight="bold">Add new user
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                    margin: "20px 0",
+                }}
+            >
+                <Typography
+                    variant="h6"
+                    textAlign="center"
+                    color="#1976d2"
+                    fontWeight="bold"
+                >
+                    Добавить нового пользователя
                 </Typography>
-                <Button variant='contained' endIcon={<MdPersonAddAlt1 />} onClick={handleClickOpen}>Add</Button>
+                <Button
+                    variant="contained"
+                    endIcon={<MdPersonAddAlt1 />}
+                    onClick={handleClickOpen}
+                >
+                    Добавить
+                </Button>
             </Box>
-            <Divider sx={{ mb: 5 }} />
+            <Divider sx={{mb: 5}} />
             <Dialog
                 open={open}
                 onClose={handleClose}
                 keepMounted
-                TransitionComponent={Transition}>
-                <DialogTitle sx={{ textAlign: "center", fontWeight: 'bold', color: "#1976d2" }}> Add new user</DialogTitle>
+                TransitionComponent={Transition}
+            >
+                <DialogTitle
+                    sx={{
+                        textAlign: "center",
+                        fontWeight: "bold",
+                        color: "#1976d2",
+                    }}
+                >
+                    {" "}
+                    Add new user
+                </DialogTitle>
                 <DialogContent>
-                    <Box onSubmit={handleSubmit} sx={{ mt: 2 }}>
+                    <Box onSubmit={handleSubmit} sx={{mt: 2}}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -96,7 +173,7 @@ const AddUser = ({ getUser }) => {
                                     required
                                     fullWidth
                                     id="firstName"
-                                    label="First Name"
+                                    label="Имя"
                                     autoFocus
                                 />
                             </Grid>
@@ -105,7 +182,7 @@ const AddUser = ({ getUser }) => {
                                     required
                                     fullWidth
                                     id="lastName"
-                                    label="Last Name"
+                                    label="Фамилия"
                                     name="lastName"
                                     value={credentials.lastName}
                                     onChange={handleOnChange}
@@ -117,7 +194,7 @@ const AddUser = ({ getUser }) => {
                                     required
                                     fullWidth
                                     id="email"
-                                    label="Email Address"
+                                    label="Почта"
                                     name="email"
                                     value={credentials.email}
                                     onChange={handleOnChange}
@@ -129,11 +206,11 @@ const AddUser = ({ getUser }) => {
                                     required
                                     fullWidth
                                     id="phoneNumber"
-                                    label="Contact Number"
+                                    label="Номер телефона"
                                     name="phoneNumber"
                                     value={credentials.phoneNumber}
                                     onChange={handleOnChange}
-                                    inputMode='numeric'
+                                    inputMode="numeric"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -141,7 +218,7 @@ const AddUser = ({ getUser }) => {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Password"
+                                    label="Пароль"
                                     type="password"
                                     value={credentials.password}
                                     onChange={handleOnChange}
@@ -150,15 +227,38 @@ const AddUser = ({ getUser }) => {
                                 />
                             </Grid>
                         </Grid>
-                        <DialogActions sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', mt: 2 }}>
-                            <Button fullWidth variant='contained' color='error' onClick={handleClose} endIcon={<MdOutlineCancel />}>Cancel</Button>
-                            <Button type="submit" onClick={handleSubmit} fullWidth variant="contained" endIcon={<MdPersonAddAlt1 />}>Add</Button>
+                        <DialogActions
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-around",
+                                alignItems: "center",
+                                mt: 2,
+                            }}
+                        >
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                color="error"
+                                onClick={handleClose}
+                                endIcon={<MdOutlineCancel />}
+                            >
+                                Отмена
+                            </Button>
+                            <Button
+                                type="submit"
+                                onClick={handleSubmit}
+                                fullWidth
+                                variant="contained"
+                                endIcon={<MdPersonAddAlt1 />}
+                            >
+                                Добавить
+                            </Button>
                         </DialogActions>
-                    </Box >
+                    </Box>
                 </DialogContent>
             </Dialog>
         </>
-    )
-}
+    );
+};
 
-export default AddUser
+export default AddUser;

@@ -1,12 +1,24 @@
-import { GroupCloth, Shoes, Electronics, FemaleCloth, MaleCloth, Books, Jewelry, lost, found } from '../Assets/Images/Image';
+import {
+    GroupCloth,
+    Shoes,
+    Electronics,
+    FemaleCloth,
+    MaleCloth,
+    Books,
+    Jewelry,
+    lost,
+    found,
+} from "../Assets/Images/Image";
 const data = [
     {
         img: lost,
-        name: "Потерянный предмет"
+        name: "Потерянные",
+        label: "Потерянный предмет",
     },
     {
         img: found,
-        name: "Найденный предмет"
+        name: "Найденные",
+        label: "Найденный предмет",
     },
     // {
     //     img: FemaleCloth,
@@ -28,5 +40,5 @@ const data = [
     //     img: Jewelry,
     //     name: "Jewelry"
     // },
-]
-export default data
+];
+export default data;

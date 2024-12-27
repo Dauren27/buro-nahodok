@@ -87,7 +87,7 @@ const SingleCategory = () => {
     return (
         <>
             <Container maxWidth='xl' style={{ marginTop: 90, display: 'flex', justifyContent: "center", flexDirection: "column" }}>
-                < Box sx={{ minWidth: 140 }}>
+                {/* < Box sx={{ minWidth: 140 }}>
                     <FormControl sx={{ width: 140 }}>
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, width: "80vw" }}>
                             <Button endIcon={<BiFilterAlt />}>Filters</Button>
@@ -104,7 +104,7 @@ const SingleCategory = () => {
                             </Select>
                         </Box>
                     </FormControl>
-                </Box>
+                </Box> */}
                 {loading}
                 <Container maxWidth='xl' style={{ marginTop: 10, display: "flex", justifyContent: 'center', flexWrap: "wrap", paddingBottom: 20, marginBottom: 30, width: '100%' }}>
                     {productData.map(prod => (
