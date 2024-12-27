@@ -10,8 +10,6 @@ import { MdLockOutline } from 'react-icons/md'
 import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
 import CopyRight from '../../../Components/CopyRight/CopyRight'
 
-
-
 const AdminLogin = () => {
 
   const [credentials, setCredentials] = useState({ email: "", password: "", key: "" })
@@ -35,13 +33,13 @@ const AdminLogin = () => {
     let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     try {
       if (!credentials.email && !credentials.password) {
-        toast.error("All fields are required", { autoClose: 500, theme: 'colored' })
+        toast.error("Все поля обязательны для заполнения", { autoClose: 500, theme: 'colored' })
       }
       else if (!emailRegex.test(credentials.email)) {
-        toast.error("Please enter a valid email", { autoClose: 500, theme: 'colored' })
+        toast.error("Пожалуйста, введите корректный email", { autoClose: 500, theme: 'colored' })
       }
       else if (credentials.password.length < 5) {
-        toast.error("Please enter valid password", { autoClose: 500, theme: 'colored' })
+        toast.error("Пожалуйста, введите корректный пароль", { autoClose: 500, theme: 'colored' })
       }
       else if (credentials.email && credentials.password) {
         const sendAuth = await axios.post(process.env.REACT_APP_ADMIN_LOGIN,
@@ -52,20 +50,19 @@ const AdminLogin = () => {
           })
         const receive = await sendAuth.data
         if (receive.success === true) {
-          toast.success("Login Successfully", { autoClose: 500, theme: 'colored' })
+          toast.success("Успешный вход", { autoClose: 500, theme: 'colored' })
           localStorage.setItem('Authorization', receive.authToken)
           navigate('/admin/home')
         } else {
-          toast.error("Invalid Credentials", { autoClose: 500, theme: 'colored' })
+          toast.error("Неверные данные для входа", { autoClose: 500, theme: 'colored' })
         }
       }
     }
     catch (error) {
-      toast.error("Invalid Credentials", { autoClose: 500, theme: 'colored' })
+      toast.error("Неверные данные для входа", { autoClose: 500, theme: 'colored' })
     }
 
   }
-
 
   return (
     <Container component="main" maxWidth="xs">
@@ -82,7 +79,7 @@ const AdminLogin = () => {
           <MdLockOutline />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Вход
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -90,7 +87,7 @@ const AdminLogin = () => {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Электронная почта"
             value={credentials.email}
             name='email'
             onChange={handleOnChange}
@@ -103,7 +100,7 @@ const AdminLogin = () => {
             value={credentials.password}
             name='password'
             onChange={handleOnChange}
-            label="Password"
+            label="Пароль"
             type={showPassword ? "text" : "password"}
             id="password"
             InputProps={{
@@ -122,12 +119,12 @@ const AdminLogin = () => {
             value={credentials.key}
             name='key'
             onChange={handleOnChange}
-            label="Admin Code"
+            label="Код администратора"
             type="password"
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label="Запомнить меня"
           />
           <Button
             type="submit"
@@ -135,17 +132,17 @@ const AdminLogin = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Войти
           </Button>
           <Grid container>
             <Grid item xs>
               <Link to="/forgotpassword" variant="body2" style={{ color: '#1976d2' }}>
-                Forgot password?
+                Забыли пароль?
               </Link>
             </Grid>
             <Grid item>
               <Link to="/admin/register" variant="body2" >
-                Don't have an account?<span style={{ color: '#1976d2' }}> Sign Up</span>
+                Нет аккаунта?<span style={{ color: '#1976d2' }}> Зарегистрироваться</span>
               </Link>
             </Grid>
           </Grid>
