@@ -11,8 +11,6 @@ import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
 
 import CopyRight from '../../Components/CopyRight/CopyRight'
 
-
-
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" })
   const [showPassword, setShowPassword] = useState(false);
@@ -24,33 +22,34 @@ const Login = () => {
   const handleOnChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
   }
+
   useEffect(() => {
     let auth = localStorage.getItem('Authorization');
     if (auth) {
       navigate("/")
     }
   }, [])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     try {
       if (!credentials.email && !credentials.password) {
-        toast.error("All fields are required", { autoClose: 500, theme: 'colored' })
+        toast.error("Все поля обязательны для заполнения", { autoClose: 500, theme: 'colored' })
       }
-      
       else if (credentials.password.length < 5) {
-        toast.error("Please enter valid password", { autoClose: 500, theme: 'colored' })
+        toast.error("Введите правильный пароль", { autoClose: 500, theme: 'colored' })
       }
       else if (credentials.email && credentials.password) {
         const sendAuth = await axios.post(`${process.env.REACT_APP_LOGIN}`, { email: credentials.email, password: credentials.password })
         const receive = await sendAuth.data
         if (receive.success === true) {
-          toast.success("Login Successfully", { autoClose: 500, theme: 'colored' })
+          toast.success("Вход выполнен успешно", { autoClose: 500, theme: 'colored' })
           localStorage.setItem('Authorization', receive.authToken)
           navigate('/')
         }
-        else{
-          toast.error("Something went wrong, Please try again", { autoClose: 500, theme: 'colored' })
+        else {
+          toast.error("Что-то пошло не так, попробуйте снова", { autoClose: 500, theme: 'colored' })
           navigate('/')
         }
       }
@@ -60,9 +59,7 @@ const Login = () => {
         toast.error(error.response.data.error[0].msg, { autoClose: 500, theme: 'colored' })
         : toast.error(error.response.data.error, { autoClose: 500, theme: 'colored' })
     }
-
   }
-
 
   return (
     <Container component="main" maxWidth="xs">
@@ -79,7 +76,7 @@ const Login = () => {
           <MdLockOutline />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Вход
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -87,7 +84,7 @@ const Login = () => {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Электронная почта"
             value={credentials.email}
             name='email'
             onChange={handleOnChange}
@@ -101,22 +98,21 @@ const Login = () => {
             value={credentials.password}
             name='password'
             onChange={handleOnChange}
-            label="Password"
+            label="Пароль"
             type={showPassword ? "text" : "password"}
             id="password"
             InputProps={{
               endAdornment: (
-                <InputAdornment position="end" onClick={handleClickShowPassword} sx={{cursor:'pointer'}}>
+                <InputAdornment position="end" onClick={handleClickShowPassword} sx={{ cursor: 'pointer' }}>
                   {showPassword ? <RiEyeFill /> : <RiEyeOffFill />}
                 </InputAdornment>
               )
             }}
             autoComplete="current-password"
-
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label="Запомнить меня"
           />
           <Button
             type="submit"
@@ -124,17 +120,17 @@ const Login = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Войти
           </Button>
           <Grid container>
             <Grid item xs>
               <Link to="/forgotpassword" variant="body2" style={{ color: '#1976d2' }}>
-                Forgot password?
+                Забыли пароль?
               </Link>
             </Grid>
             <Grid item>
-              <Link to="/register" variant="body2" >
-                Don't have an account?<span style={{ color: '#1976d2' }}> Sign Up</span>
+              <Link to="/register" variant="body2">
+                Нет аккаунта?<span style={{ color: '#1976d2' }}> Зарегистрироваться</span>
               </Link>
             </Grid>
           </Grid>

@@ -70,7 +70,7 @@ const DesktopNavigation = () => {
                   </li>
                   <li style={{ display: 'flex', alignItems: 'center', justifyItems: 'center' }} onClick={() => handleClickOpen(setOpenAlert)}>
                     <Button variant='contained' className='nav-icon-span' sx={{ marginBottom: 1 }} endIcon={<FiLogOut />}>
-                      <Typography variant='button'> Logout</Typography>
+                      <Typography variant='button'> Выйти</Typography>
                     </Button>
                   </li>
                 </>
@@ -94,12 +94,12 @@ const DesktopNavigation = () => {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogContent sx={{ width: { xs: 280, md: 350, xl: 400 }, display: 'flex', justifyContent: 'center' }}>
-          <Typography variant='h6'>  Do You Want To Logout?</Typography>
+          <Typography variant='h6'>  Вы точно хотите выйти?</Typography>
         </DialogContent>
         <DialogActions sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
           <Link to="/">
-            <Button variant='contained' endIcon={<FiLogOut />} color='primary' onClick={() => handleLogOut(setProceed, toast, navigate, setOpenAlert)}>Logout</Button></Link>
-          <Button variant='contained' color='error' endIcon={<AiFillCloseCircle />} onClick={() => handleClose(setOpenAlert)}>Close</Button>
+            <Button variant='contained' endIcon={<FiLogOut />} color='primary' onClick={() => handleLogOut(setProceed, toast, navigate, setOpenAlert)}>Выйти</Button></Link>
+          <Button variant='contained' color='error' endIcon={<AiFillCloseCircle />} onClick={() => handleClose(setOpenAlert)}>Закрыть</Button>
         </DialogActions>
       </Dialog>
     </>

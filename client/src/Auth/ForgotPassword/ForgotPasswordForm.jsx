@@ -39,7 +39,7 @@ const ForgotPasswordForm = () => {
                             <MdLockOutline />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Forgot Password
+                            Забыли пароль
                         </Typography>
                         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                             <TextField
@@ -60,7 +60,7 @@ const ForgotPasswordForm = () => {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Submit
+                                отправить
                             </Button>
                         </Box>
 
