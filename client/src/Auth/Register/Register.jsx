@@ -9,8 +9,6 @@ import { toast } from 'react-toastify'
 import CopyRight from '../../Components/CopyRight/CopyRight'
 import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
 
-
-
 const Register = () => {
 
   const [credentials, setCredentials] = useState({ firstName: "", lastName: '', email: "", phoneNumber: '', password: "" })
@@ -34,16 +32,16 @@ const Register = () => {
     let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     try {
       if (!credentials.email && !credentials.firstName && !credentials.password && !credentials.phoneNumber && !credentials.lastName) {
-        toast.error("All fields are required", { autoClose: 500, theme: 'colored' })
+        toast.error("Все поля обязательны для заполнения", { autoClose: 500, theme: 'colored' })
       }
       else if (credentials.firstName.length < 1 || credentials.lastName.length < 1) {
-        toast.error("Please enter valid name", { autoClose: 500, theme: 'colored' })
+        toast.error("Пожалуйста, введите корректные имя и фамилию", { autoClose: 500, theme: 'colored' })
       }
       else if (emailRegex.test(credentials.email)===false) {
-        toast.error("Please enter valid email", { autoClose: 500, theme: 'colored' })
+        toast.error("Пожалуйста, введите корректный email", { autoClose: 500, theme: 'colored' })
       }
       else if (credentials.password.length < 5) {
-        toast.error("Please enter password with more than 5 characters", { autoClose: 500, theme: 'colored' })
+        toast.error("Пароль должен содержать больше 5 символов", { autoClose: 500, theme: 'colored' })
       }
       else if (credentials.email && credentials.firstName && credentials.lastName && credentials.phoneNumber && credentials.password) {
         const sendAuth = await axios.post(`${process.env.REACT_APP_REGISTER}`,
@@ -56,13 +54,13 @@ const Register = () => {
           })
         const receive = await sendAuth.data
         if (receive.success === true) {
-          toast.success("Registered Successfully", { autoClose: 500, theme: 'colored' })
+          toast.success("Регистрация прошла успешно", { autoClose: 500, theme: 'colored' })
           localStorage.setItem('Authorization', receive.authToken)
           navigate('/')
           console.log(receive);
         }
         else {
-          toast.error("Something went wrong, Please try again", { autoClose: 500, theme: 'colored' })
+          toast.error("Что-то пошло не так, попробуйте снова", { autoClose: 500, theme: 'colored' })
           navigate('/')
         }
       }
@@ -72,7 +70,6 @@ const Register = () => {
     }
 
   }
-
 
   return (
     <>
@@ -90,7 +87,7 @@ const Register = () => {
             <MdLockOutline />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Регистрация
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -103,7 +100,7 @@ const Register = () => {
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label="Имя"
                   autoFocus
                 />
               </Grid>
@@ -112,7 +109,7 @@ const Register = () => {
                   required
                   fullWidth
                   id="lastName"
-                  label="Last Name"
+                  label="Фамилия"
                   name="lastName"
                   value={credentials.lastName}
                   onChange={handleOnChange}
@@ -124,12 +121,11 @@ const Register = () => {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="Электронная почта"
                   name="email"
                   value={credentials.email}
                   onChange={handleOnChange}
                   autoComplete="email"
-
                 />
               </Grid>
               <Grid item xs={12}>
@@ -137,7 +133,7 @@ const Register = () => {
                   required
                   fullWidth
                   id="phoneNumber"
-                  label="Contact Number"
+                  label="Номер телефона"
                   name="phoneNumber"
                   value={credentials.phoneNumber}
                   onChange={handleOnChange}
@@ -149,7 +145,7 @@ const Register = () => {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Пароль"
                   type={showPassword ? "text" : "password"}
                   id="password"
                   InputProps={{
@@ -167,7 +163,7 @@ const Register = () => {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="Я хочу получать вдохновение, маркетинговые предложения и обновления по электронной почте."
                 />
               </Grid>
             </Grid>
@@ -177,13 +173,13 @@ const Register = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Зарегистрироваться
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                Already have an account?
+                Уже есть аккаунт?
                 <Link to='/login' style={{ color: '#1976d2', marginLeft: 3 }}>
-                  Sign in
+                  Войти
                 </Link>
               </Grid>
             </Grid>

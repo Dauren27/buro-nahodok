@@ -34,16 +34,16 @@ const AdminRegister = () => {
     let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     try {
       if (!credentials.email && !credentials.firstName && !credentials.password && !credentials.phoneNumber && !credentials.lastName) {
-        toast.error("All fields are required", { autoClose: 500, theme: 'colored' })
+        toast.error("Все поля обязательны для заполнения", { autoClose: 500, theme: 'colored' })
       }
       else if (credentials.firstName.length <= 3 || credentials.lastName.length <= 3) {
-        toast.error("Please enter name with more than 3 characters", { autoClose: 500, theme: 'colored' })
+        toast.error("Введите имя и фамилию длиной больше 3 символов", { autoClose: 500, theme: 'colored' })
       }
       else if (!emailRegex.test(credentials.email)) {
-        toast.error("Please enter valid email", { autoClose: 500, theme: 'colored' })
+        toast.error("Пожалуйста, введите корректный email", { autoClose: 500, theme: 'colored' })
       }
       else if (credentials.password.length < 5) {
-        toast.error("Please enter password with more than 5 characters", { autoClose: 500, theme: 'colored' })
+        toast.error("Пароль должен содержать более 5 символов", { autoClose: 500, theme: 'colored' })
       }
       else if (credentials.email && credentials.firstName && credentials.lastName && credentials.phoneNumber && credentials.password) {
         const sendAuth = await axios.post(process.env.REACT_APP_ADMIN_REGISTER,
@@ -57,20 +57,19 @@ const AdminRegister = () => {
           })
         const receive = await sendAuth.data
         if (receive.success === true) {
-          toast.success("Registered Successfully", { autoClose: 500, theme: 'colored' })
+          toast.success("Регистрация прошла успешно", { autoClose: 500, theme: 'colored' })
           localStorage.setItem('Authorization', receive.authToken)
           navigate('/admin/home')
         }
         else {
-          toast.error("Invalid Credentials", { autoClose: 500, theme: 'colored' })
+          toast.error("Неверные данные", { autoClose: 500, theme: 'colored' })
         }
       }
     } catch (error) {
-      toast.error("Invalid Credentials", { autoClose: 500, theme: 'colored' })
+      toast.error("Неверные данные", { autoClose: 500, theme: 'colored' })
     }
 
   }
-
 
   return (
     <>
@@ -88,7 +87,7 @@ const AdminRegister = () => {
             <MdLockOutline />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Регистрация
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -101,7 +100,7 @@ const AdminRegister = () => {
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label="Имя"
                   autoFocus
                 />
               </Grid>
@@ -110,7 +109,7 @@ const AdminRegister = () => {
                   required
                   fullWidth
                   id="lastName"
-                  label="Last Name"
+                  label="Фамилия"
                   name="lastName"
                   value={credentials.lastName}
                   onChange={handleOnChange}
@@ -122,7 +121,7 @@ const AdminRegister = () => {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="Электронная почта"
                   name="email"
                   value={credentials.email}
                   onChange={handleOnChange}
@@ -134,7 +133,7 @@ const AdminRegister = () => {
                   required
                   fullWidth
                   id="phoneNumber"
-                  label="Contact Number"
+                  label="Номер телефона"
                   name="phoneNumber"
                   value={credentials.phoneNumber}
                   onChange={handleOnChange}
@@ -146,7 +145,7 @@ const AdminRegister = () => {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Пароль"
                   value={credentials.password}
                   onChange={handleOnChange}
                   type={showPassword ? "text" : "password"}
@@ -168,14 +167,14 @@ const AdminRegister = () => {
                   value={credentials.key}
                   name='key'
                   onChange={handleOnChange}
-                  label="Admin Code"
+                  label="Код администратора"
                   type="password"
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="Я хочу получать вдохновение, маркетинговые акции и обновления по электронной почте."
                 />
               </Grid>
             </Grid>
@@ -185,13 +184,13 @@ const AdminRegister = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Зарегистрироваться
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                Already have an account?
+                Уже есть аккаунт?
                 <Link to='/admin/login' style={{ color: '#1976d2', marginLeft: 3 }}>
-                  Sign in
+                  Войти
                 </Link>
               </Grid>
             </Grid>

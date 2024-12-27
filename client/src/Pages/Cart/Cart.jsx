@@ -166,11 +166,11 @@ const Cart = () => {
                 aria-describedby="alert-dialog-slide-description"
             >
                 <DialogContent sx={{ width: { xs: 280, md: 350, xl: 400 }, display: 'flex', justifyContent: 'center' }}>
-                    <Typography variant='h5'> Please Login To Proceed</Typography>
+                    <Typography variant='h5'> Пожалуйста, войдите, чтобы продолжить</Typography>
                 </DialogContent>
                 <DialogActions sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                    <Button variant='contained' onClick={handleToLogin} endIcon={<AiOutlineLogin />} color='primary'>Login</Button>
-                    <Button variant='contained' color='error' endIcon={<AiFillCloseCircle />} onClick={handleClose}>Close</Button>
+                    <Button variant='contained' onClick={handleToLogin} endIcon={<AiOutlineLogin />} color='primary'>Войти</Button>
+                    <Button variant='contained' color='error' endIcon={<AiFillCloseCircle />} onClick={handleClose}>Закрыть</Button>
                 </DialogActions>
             </Dialog>
             <CopyRight sx={{ mt: 8, mb: 10 }} />

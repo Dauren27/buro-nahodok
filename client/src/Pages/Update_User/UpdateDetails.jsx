@@ -59,7 +59,7 @@ const UpdateDetails = () => {
             setUserData(data);
 
         } catch (error) {
-            toast.error("Something went wrong", { autoClose: 500, theme: 'colored' })
+            toast.error("Что-то пошло не так", { autoClose: 500, theme: 'colored' })
 
         }
     }
@@ -69,31 +69,30 @@ const UpdateDetails = () => {
 
     let phoneRegex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/;
     let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    // let zipRegex = /^[1-9]{1}[0-9]{2}\\s{0, 1}[0-9]{3}$/;
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             if (!userDetails.email && !userDetails.firstName && !userDetails.phoneNumber && !userDetails.lastName && !userDetails.address && !userDetails.city && !userDetails.userState && !userDetails.zipCode) {
-                toast.error("Please Fill the all Fields", { autoClose: 500, theme: 'colored' })
+                toast.error("Пожалуйста, заполните все поля", { autoClose: 500, theme: 'colored' })
             }
             else if (userDetails.firstName.length < 3 || userDetails.lastName.length < 3) {
-                toast.error("Please enter name with more than 3 characters", { autoClose: 500, theme: 'colored' })
+                toast.error("Пожалуйста, введите имя, состоящее более чем из 3 символов", { autoClose: 500, theme: 'colored' })
             }
             else if (!emailRegex.test(userDetails.email)) {
-                toast.error("Please enter valid email", { autoClose: 500, theme: 'colored' })
+                toast.error("Пожалуйста, введите правильный email", { autoClose: 500, theme: 'colored' })
             }
             else if (!userDetails.address) {
-                toast.error("Please add address", { autoClose: 500, theme: 'colored' })
+                toast.error("Пожалуйста, добавьте адрес", { autoClose: 500, theme: 'colored' })
             }
             else if (!userDetails.city) {
-                toast.error("Please add city", { autoClose: 500, theme: 'colored' })
+                toast.error("Пожалуйста, добавьте город", { autoClose: 500, theme: 'colored' })
             }
             else if (!userDetails.zipCode) {
-                toast.error("Please enter valid Zip code", { autoClose: 500, theme: 'colored' })
+                toast.error("Пожалуйста, введите правильный почтовый индекс", { autoClose: 500, theme: 'colored' })
             }
             else if (!userDetails.userState) {
-                toast.error("Please add state", { autoClose: 500, theme: 'colored' })
+                toast.error("Пожалуйста, добавьте область/штат", { autoClose: 500, theme: 'colored' })
             }
             else {
                 const { data } = await axios.put(`${process.env.REACT_APP_UPDATE_USER_DETAILS}`, {
@@ -105,12 +104,12 @@ const UpdateDetails = () => {
                         }
                     })
                 if (data.success === true) {
-                    toast.success("Updated Successfully", { autoClose: 500, theme: 'colored' })
+                    toast.success("Успешно обновлено", { autoClose: 500, theme: 'colored' })
                     getUserData()
                     
                 }
                 else {
-                    toast.error("Something went wrong", { autoClose: 500, theme: 'colored' })
+                    toast.error("Что-то пошло не так", { autoClose: 500, theme: 'colored' })
                 }
             }
         }
@@ -124,13 +123,13 @@ const UpdateDetails = () => {
         e.preventDefault()
         try {
             if (!password.currentPassword && !password.newPassword) {
-                toast.error("Please Fill the all Fields", { autoClose: 500, theme: 'colored' })
+                toast.error("Пожалуйста, заполните все поля", { autoClose: 500, theme: 'colored' })
             }
             else if (password.currentPassword.length < 5) {
-                toast.error("Please enter valid password", { autoClose: 500, theme: 'colored' })
+                toast.error("Пожалуйста, введите правильный пароль", { autoClose: 500, theme: 'colored' })
             }
             else if (password.newPassword.length < 5) {
-                toast.error("Please enter password with more than 5 characters", { autoClose: 500, theme: 'colored' })
+                toast.error("Пожалуйста, введите пароль длиной более 5 символов", { autoClose: 500, theme: 'colored' })
             }
             else {
                 const { data } = await axios.post(`${process.env.REACT_APP_RESET_PASSWORD}`, {
@@ -158,7 +157,7 @@ const UpdateDetails = () => {
                     'Authorization': authToken
                 }
             });
-            toast.success("Account deleted successfully", { autoClose: 500, theme: 'colored' })
+            toast.success("Аккаунт удален успешно", { autoClose: 500, theme: 'colored' })
             localStorage.removeItem('Authorization');
             sessionStorage.removeItem('totalAmount');
             navigate("/login")
@@ -170,46 +169,46 @@ const UpdateDetails = () => {
     return (
         <>
             <Container sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginBottom: 10 }}>
-                <Typography variant='h6' sx={{ margin: '30px 0', fontWeight: 'bold', color: '#1976d2' }}>Personal Information</Typography>
+                <Typography variant='h6' sx={{ margin: '30px 0', fontWeight: 'bold', color: '#1976d2' }}>Персональная информация</Typography>
                 <form noValidate autoComplete="off" className={styles.checkout_form} onSubmit={handleSubmit} >
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
-                            <TextField label="First Name" name='firstName' value={userDetails.firstName || ''} onChange={handleOnchange} variant="outlined" fullWidth />
+                            <TextField label="Имя" name='firstName' value={userDetails.firstName || ''} onChange={handleOnchange} variant="outlined" fullWidth />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField label="Last Name" name='lastName' value={userDetails.lastName || ''} onChange={handleOnchange} variant="outlined" fullWidth />
+                            <TextField label="Фамилия" name='lastName' value={userDetails.lastName || ''} onChange={handleOnchange} variant="outlined" fullWidth />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField label="Contact Number" type='tel' name='phoneNumber' value={userDetails.phoneNumber || ''} onChange={handleOnchange} variant="outlined" fullWidth />
+                            <TextField label="Номер телефона" type='tel' name='phoneNumber' value={userDetails.phoneNumber || ''} onChange={handleOnchange} variant="outlined" fullWidth />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField label="Email" name='email' value={userDetails.email || ''} onChange={handleOnchange} variant="outlined" fullWidth />
+                            <TextField label="Электронная почта" name='email' value={userDetails.email || ''} onChange={handleOnchange} variant="outlined" fullWidth />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField label="Address" name='address' value={userDetails.address || ''} onChange={handleOnchange} variant="outlined" fullWidth />
+                            <TextField label="Адрес" name='address' value={userDetails.address || ''} onChange={handleOnchange} variant="outlined" fullWidth />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField label="City" name='city' value={userDetails.city || ''} onChange={handleOnchange} variant="outlined" fullWidth />
+                            <TextField label="Город" name='city' value={userDetails.city || ''} onChange={handleOnchange} variant="outlined" fullWidth />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField type='tel' label="Postal/Zip Code" name='zipCode' value={userDetails.zipCode || ''} onChange={handleOnchange} variant="outlined" fullWidth />
+                            <TextField type='tel' label="Почтовый индекс" name='zipCode' value={userDetails.zipCode || ''} onChange={handleOnchange} variant="outlined" fullWidth />
                         </Grid>
                         <Grid item xs={12} >
-                            <TextField label="Province/State" name='userState' value={userDetails.userState || ''} onChange={handleOnchange} variant="outlined" fullWidth />
+                            <TextField label="Область/Штат" name='userState' value={userDetails.userState || ''} onChange={handleOnchange} variant="outlined" fullWidth />
                         </Grid>
                     </Grid>
                     <Container sx={{ display: 'flex', justifyContent: 'space-around', marginTop: 5 }}>
-                        <Button variant='contained' endIcon={<TiArrowBackOutline />} onClick={()=>navigate(-1)} >Back</Button>
-                        <Button variant='contained' endIcon={<AiOutlineFileDone />}  type='submit'>Save</Button>
+                        <Button variant='contained' endIcon={<TiArrowBackOutline />} onClick={()=>navigate(-1)} >Назад</Button>
+                        <Button variant='contained' endIcon={<AiOutlineFileDone />}  type='submit'>Сохранить</Button>
                     </Container>
                 </form >
 
-                <Typography variant='h6' sx={{ margin: '20px 0', fontWeight: 'bold', color: '#1976d2' }}>Reset Password</Typography>
+                <Typography variant='h6' sx={{ margin: '20px 0', fontWeight: 'bold', color: '#1976d2' }}>Сбросить пароль</Typography>
                 <form onSubmit={handleResetPassword}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} >
                             <TextField
-                                label="Current Password"
+                                label="Текущий пароль"
                                 name='currentPassword'
                                 type={showPassword ? "text" : "password"}
                                 InputProps={{
@@ -230,7 +229,7 @@ const UpdateDetails = () => {
                         </Grid>
                         <Grid item xs={12} >
                             <TextField
-                                label="New Password"
+                                label="Новый пароль"
                                 name='newPassword'
                                 type={showNewPassword ? "text" : "password"}
                                 id="password"
@@ -252,12 +251,12 @@ const UpdateDetails = () => {
                         </Grid>
                     </Grid>
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: "25px 0", width: '100%' }}>
-                        <Button variant='contained' color='primary' endIcon={<RiLockPasswordLine />} type='submit'>Reset</Button>
+                        <Button variant='contained' color='primary' endIcon={<RiLockPasswordLine />} type='submit'>Сбросить</Button>
                     </Box>
                 </form>
                 <Box sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', margin: "25px 0", width: '100%' }}>
-                    <Typography variant='h6'>Delete Your Account?</Typography>
-                    <Button variant='contained' color='error' endIcon={<AiFillDelete />} onClick={() => setOpenAlert(true)}>Delete</Button>
+                    <Typography variant='h6'>Удалить аккаунт?</Typography>
+                    <Button variant='contained' color='error' endIcon={<AiFillDelete />} onClick={() => setOpenAlert(true)}>Удалить</Button>
                 </Box>
                 <Dialog
                     open={openAlert}
@@ -266,16 +265,15 @@ const UpdateDetails = () => {
                     onClose={() => setOpenAlert(false)}
                     aria-describedby="alert-dialog-slide-description"
                 >
-                    {/* <DialogTitle>{"Use Google's location service?"}</DialogTitle> */}
                     <DialogContent sx={{ width: { xs: 280, md: 350, xl: 400 } }}>
                         <DialogContentText style={{ textAlign: 'center' }} id="alert-dialog-slide-description">
-                            <Typography variant='body1'>Your all data will be erased</Typography>
+                            <Typography variant='body1'>Все ваши данные будут удалены</Typography>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                        <Button variant='contained' endIcon={<AiFillDelete />} color='error' onClick={deleteAccount}>Delete</Button>
+                        <Button variant='contained' endIcon={<AiFillDelete />} color='error' onClick={deleteAccount}>Удалить</Button>
                         <Button variant='contained' color='primary'
-                            onClick={() => setOpenAlert(false)} endIcon={<AiFillCloseCircle />}>Close</Button>
+                            onClick={() => setOpenAlert(false)} endIcon={<AiFillCloseCircle />}>Закрыть</Button>
                     </DialogActions>
                 </Dialog>
             </Container >

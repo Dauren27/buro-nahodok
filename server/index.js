@@ -18,7 +18,7 @@ dotenv.config()
 
 connectToMongo();
 
-const port = 5000
+const port = 8000
 
 const app = express()
 

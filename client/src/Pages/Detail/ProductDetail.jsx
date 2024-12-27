@@ -150,13 +150,13 @@ const ProductDetail = () => {
                 >
                     <DialogContent sx={{ width: { xs: 280, md: 350, xl: 400 } }}>
                         <DialogContentText style={{ textAlign: 'center' }} id="alert-dialog-slide-description">
-                            Please Login To Proceed
+                        Пожалуйста, войдите, чтобы продолжить
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                        <Link to="/login"> <Button variant='contained' endIcon={<AiOutlineLogin />} color='primary'>Login</Button></Link>
+                        <Link to="/login"> <Button variant='contained' endIcon={<AiOutlineLogin />} color='primary'>Войти</Button></Link>
                         <Button variant='contained' color='error'
-                            onClick={() => setOpenAlert(false)} endIcon={<AiFillCloseCircle />}>Close</Button>
+                            onClick={() => setOpenAlert(false)} endIcon={<AiFillCloseCircle />}>Закрыть</Button>
                     </DialogActions>
                 </Dialog>
 
