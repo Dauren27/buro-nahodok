@@ -30,8 +30,6 @@ const SingleUserPage = () => {
         <>
             <Container>
                 <UserInfoItem commonGetRequest={commonGetRequest} authToken={authToken} id={id} />
-                <UserOrderItem commonGetRequest={commonGetRequest} authToken={authToken} id={id} />
-                <UserCartItem commonGetRequest={commonGetRequest} authToken={authToken} id={id} />
                 <UserWishlistItem commonGetRequest={commonGetRequest} authToken={authToken} id={id} />
                 <UserReviewItem commonGetRequest={commonGetRequest} authToken={authToken} id={id} />
             </Container >

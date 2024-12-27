@@ -12,8 +12,8 @@ const UserReviewItem = ({ commonGetRequest, id }) => {
     }, [])
     return (
         <>
-            <Typography variant='h6' fontWeight="bold" sx={{ margin: '20px 0', textAlign: 'center' }}>User Reviews</Typography>
-            {userReview.length < 1 && <Typography variant='h6' sx={{ margin: '40px 0', textAlign: 'center' }}>Not reviewed any products</Typography>}
+            <Typography variant='h6' fontWeight="bold" sx={{ margin: '20px 0', textAlign: 'center' }}>Комментарий пользователя</Typography>
+            {userReview.length < 1 && <Typography variant='h6' sx={{ margin: '40px 0', textAlign: 'center' }}>Пользователь не оставил никаких комментариев</Typography>}
 
             <Box className='review-box' sx={{ padding: 1.5 }} >
                 {
@@ -23,7 +23,7 @@ const UserReviewItem = ({ commonGetRequest, id }) => {
                             <Link to={`/Detail/type/${review.productId.type}/${review.productId._id}`} key={review._id} style={{
                                 color: "#1976d2"
                             }}>
-                                <Typography textAlign="center" sx={{ color: "#1976d" }} >Go to that product</Typography>  </Link>
+                                <Typography textAlign="center" sx={{ color: "#1976d" }} >Перейти к публикации</Typography>  </Link>
                         </Box>
                     )
                 }
