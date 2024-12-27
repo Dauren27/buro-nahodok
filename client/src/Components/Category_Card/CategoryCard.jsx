@@ -7,7 +7,7 @@ const CategoryCard = ({ data }) => {
         <Link to={`product/type/${data.name.toLowerCase()}`}>
             <div className={styles.mainCard}>
                 <img src={data.img} alt="" className={styles.mainImg} loading='lazy' />
-                <span className={styles.imgTitle}>{data.name}</span>
+                <span className={styles.imgTitle}>{data.label}</span>
             </div>
         </Link>
     )

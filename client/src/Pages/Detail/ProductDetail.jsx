@@ -64,7 +64,7 @@ const ProductDetail = () => {
                 );
                 setWishlistData(data);
                 setWishlistData([...wishlistData, product]);
-                toast.success("Added To Wishlist", {
+                toast.success("Публикация добавлена в избранное", {
                     autoClose: 500,
                     theme: "colored",
                 });

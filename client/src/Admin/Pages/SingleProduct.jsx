@@ -154,7 +154,7 @@ const SingleProduct = () => {
         }
     };
     const shoeBrand = ["adidas", "hushpuppies", "nike", "reebok", "vans"];
-    const typeDropdown = ["Потерянные", "Найденные"];
+    const typeDropdown = ["потерянные", "найденные"];
 
     return (
         <>
@@ -207,7 +207,7 @@ const SingleProduct = () => {
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
-                                label="Name"
+                                label="Название"
                                 name="name"
                                 value={productInfo.name}
                                 onChange={handleOnchange}
@@ -242,7 +242,7 @@ const SingleProduct = () => {
                                 id="filled-textarea"
                                 value={productInfo.description}
                                 onChange={handleOnchange}
-                                label="Description"
+                                label="Описание"
                                 multiline
                                 sx={{width: "100%"}}
                                 variant="outlined"

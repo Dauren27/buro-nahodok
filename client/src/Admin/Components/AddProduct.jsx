@@ -143,7 +143,7 @@ const AddProduct = ({getProductInfo, data}) => {
     } else {
         productFilter.push("all");
     }
-    const typeDropdown = ["Потерянные", "Найденные"];
+    const typeDropdown = ["потерянные", "найденные"];
     const shoeBrand = ["adidas", "hushpuppies", "nike", "reebok", "vans"];
 
     return (

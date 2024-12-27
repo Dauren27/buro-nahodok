@@ -30,17 +30,35 @@ import {
     handleClose,
     Transition,
 } from "../Constants/Constant";
+import axios from "axios";
 
 const DesktopNavigation = () => {
     const {cart, setCart, wishlistData, setWishlistData} =
         useContext(ContextFunction);
     const [openAlert, setOpenAlert] = useState(false);
+    const [isAdmin, setAdmin] = useState(false);
     const navigate = useNavigate();
     let authToken = localStorage.getItem("Authorization");
     let setProceed = authToken !== null ? true : false;
+
+    const getUser = async () => {
+        try {
+            const {data} = await axios.get(
+                `${process.env.REACT_APP_ADMIN_GET_ALL_USERS}`,
+                {
+                    headers: {
+                        Authorization: authToken,
+                    },
+                }
+            );
+            setAdmin(true);
+        } catch (error) {}
+    };
+
     useEffect(() => {
         getCart(setProceed, setCart, authToken);
         getWishList(setProceed, setWishlistData, authToken);
+        getUser();
     }, []);
 
     return (
@@ -83,6 +101,18 @@ const DesktopNavigation = () => {
                                 </NavLink>
                             </Tooltip>
                         </li>
+
+                        {isAdmin && (
+                            <li className="nav-links">
+                                <Tooltip title="Избранное">
+                                    <NavLink to="/admin/home">
+                                        <span className="nav-icon-span">
+                                            Панель управления{" "}
+                                        </span>
+                                    </NavLink>
+                                </Tooltip>
+                            </li>
+                        )}
 
                         {setProceed ? (
                             <>
